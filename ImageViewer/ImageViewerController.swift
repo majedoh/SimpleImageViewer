@@ -10,7 +10,7 @@ public final class ImageViewerController: UIViewController {
     fileprivate let configuration: ImageViewerConfiguration?
     
     public override var prefersStatusBarHidden: Bool {
-        return true
+        return false
     }
     
     public init(configuration: ImageViewerConfiguration?) {
@@ -19,7 +19,7 @@ public final class ImageViewerController: UIViewController {
         
         modalPresentationStyle = .overFullScreen
         modalTransitionStyle = .crossDissolve
-        modalPresentationCapturesStatusBarAppearance = true
+        modalPresentationCapturesStatusBarAppearance = false
     }
     
     required public init?(coder aDecoder: NSCoder) {
