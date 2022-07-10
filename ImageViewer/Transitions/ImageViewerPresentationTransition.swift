@@ -23,7 +23,7 @@ final class ImageViewerPresentationTransition: NSObject, UIViewControllerAnimate
         imageView.contentMode = fromImageView.contentMode
         
         let fadeView = UIView(frame: containerView.bounds)
-        fadeView.backgroundColor = .black
+        fadeView.backgroundColor = UIColor(#colorLiteral(red: 0.1333333333, green: 0.1176470588, blue: 0.1254901961, alpha: 1))
         fadeView.alpha = 0.0
         
         toView.frame = containerView.bounds

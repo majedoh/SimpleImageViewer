@@ -61,7 +61,7 @@ final class ImageViewerDismissalTransition: NSObject, UIViewControllerAnimatedTr
         
         fromView?.isHidden = true
         fadeView.frame = containerView.bounds
-        fadeView.backgroundColor = .black
+        fadeView.backgroundColor = UIColor(#colorLiteral(red: 0.1333333333, green: 0.1176470588, blue: 0.1254901961, alpha: 1))
         
         containerView.addSubview(fadeView)
         containerView.addSubview(animatableImageview)
