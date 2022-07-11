@@ -1,7 +1,16 @@
+
+
 import UIKit
 import AVFoundation
 
+protocol ImageViewerControllerDelegate:AnyObject{
+    func didPressEdit()
+}
+
+
 public final class ImageViewerController: UIViewController {
+    weak var delegate : ImageViewerControllerDelegate?
+    
     @IBOutlet fileprivate var scrollView: UIScrollView!
     @IBOutlet fileprivate var imageView: UIImageView!
     @IBOutlet fileprivate var activityIndicator: UIActivityIndicatorView!
@@ -12,6 +21,25 @@ public final class ImageViewerController: UIViewController {
     public override var prefersStatusBarHidden: Bool {
         return false
     }
+    
+    var presentEdit : Bool = false
+    
+    var messageLable : UILabel = {
+        let lab = UILabel()
+        lab.font = UIFont.systemFont(ofSize: 14, weight: .medium)
+        lab.textColor = .white
+        lab.textAlignment = .center
+        lab.numberOfLines = 0
+        lab.text = "Edit"
+        return lab
+    }()
+    
+    var Holderview : UIControl = {
+        let _view = UIControl()
+        _view.backgroundColor = .clear
+        return _view
+    }()
+    
     
     public init(configuration: ImageViewerConfiguration?) {
         self.configuration = configuration
@@ -37,6 +65,28 @@ public final class ImageViewerController: UIViewController {
         view.backgroundColor =  UIColor(#colorLiteral(red: 0.1333333333, green: 0.1176470588, blue: 0.1254901961, alpha: 1))
         imageView.backgroundColor = UIColor(#colorLiteral(red: 0.1333333333, green: 0.1176470588, blue: 0.1254901961, alpha: 1))
         scrollView.backgroundColor = UIColor(#colorLiteral(red: 0.1333333333, green: 0.1176470588, blue: 0.1254901961, alpha: 1))
+        
+        if presentEdit {
+            view.addSubview(Holderview)
+            Holderview.addSubview(messageLable)
+            
+            NSLayoutConstraint.activate([
+                Holderview.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
+                Holderview.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
+                Holderview.widthAnchor.constraint(equalToConstant: 50),
+                Holderview.heightAnchor.constraint(equalToConstant: 30),
+                messageLable.topAnchor.constraint(equalTo: Holderview.topAnchor, constant: 4),
+                messageLable.bottomAnchor.constraint(equalTo: Holderview.bottomAnchor, constant: -4),
+                messageLable.leadingAnchor.constraint(equalTo: Holderview.leadingAnchor, constant: 4),
+                messageLable.trailingAnchor.constraint(equalTo: Holderview.trailingAnchor, constant: -4),
+            ])
+            Holderview.addTarget(self, action: #selector(didPressEdits), for: .touchDown)
+        }
+        
+    }
+    
+    @objc func didPressEdits(){
+        delegate?.didPressEdit()
     }
 }
 
