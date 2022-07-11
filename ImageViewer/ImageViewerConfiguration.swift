@@ -9,6 +9,8 @@ public final class ImageViewerConfiguration {
     public var imageView: UIImageView?
     public var imageBlock: ImageBlock?
     
+
+    
     public typealias ConfigurationClosure = (ImageViewerConfiguration) -> ()
     
     public init(configurationClosure: ConfigurationClosure) {

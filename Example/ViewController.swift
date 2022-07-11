@@ -1,7 +1,11 @@
 import UIKit
 import SimpleImageViewer
 
-class ViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
+class ViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, ImageViewerControllerDelegate {
+    func didPressEdit() {
+        print("Herllo")
+    }
+    
     fileprivate let contentModes: [UIView.ContentMode] = [.scaleToFill,
                                                          .scaleAspectFit,
                                                          .scaleAspectFill,
@@ -45,7 +49,11 @@ class ViewController: UICollectionViewController, UICollectionViewDelegateFlowLa
             config.imageView = cell.imageView
         }
         
-        present(ImageViewerController(configuration: configuration), animated: true)
+        let vc = ImageViewerController(configuration: configuration)
+        vc.delegate = self
+        vc.presentEdit = true
+        
+        present(vc, animated: true)
     }
     
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {

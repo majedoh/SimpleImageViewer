@@ -3,13 +3,13 @@
 import UIKit
 import AVFoundation
 
-protocol ImageViewerControllerDelegate:AnyObject{
+public protocol ImageViewerControllerDelegate:AnyObject{
     func didPressEdit()
 }
 
 
 public final class ImageViewerController: UIViewController {
-    weak var delegate : ImageViewerControllerDelegate?
+    public weak var delegate : ImageViewerControllerDelegate?
     
     @IBOutlet fileprivate var scrollView: UIScrollView!
     @IBOutlet fileprivate var imageView: UIImageView!
@@ -22,11 +22,11 @@ public final class ImageViewerController: UIViewController {
         return false
     }
     
-    var presentEdit : Bool = false
+    
     
     var messageLable : UILabel = {
         let lab = UILabel()
-        lab.font = UIFont.systemFont(ofSize: 14, weight: .medium)
+        lab.font = UIFont.systemFont(ofSize: 16, weight: .medium)
         lab.textColor = .white
         lab.textAlignment = .center
         lab.numberOfLines = 0
@@ -40,6 +40,7 @@ public final class ImageViewerController: UIViewController {
         return _view
     }()
     
+    public var presentEdit : Bool = false
     
     public init(configuration: ImageViewerConfiguration?) {
         self.configuration = configuration
@@ -58,6 +59,8 @@ public final class ImageViewerController: UIViewController {
         super.viewDidLoad()
         imageView.image = configuration?.imageView?.image ?? configuration?.image
         
+
+        
         setupScrollView()
         setupGestureRecognizers()
         setupTransitions()
@@ -69,12 +72,15 @@ public final class ImageViewerController: UIViewController {
         if presentEdit {
             view.addSubview(Holderview)
             Holderview.addSubview(messageLable)
-            
+            Holderview.translatesAutoresizingMaskIntoConstraints = false
             NSLayoutConstraint.activate([
                 Holderview.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
                 Holderview.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
                 Holderview.widthAnchor.constraint(equalToConstant: 50),
                 Holderview.heightAnchor.constraint(equalToConstant: 30),
+            ])
+            messageLable.translatesAutoresizingMaskIntoConstraints = false
+            NSLayoutConstraint.activate([
                 messageLable.topAnchor.constraint(equalTo: Holderview.topAnchor, constant: 4),
                 messageLable.bottomAnchor.constraint(equalTo: Holderview.bottomAnchor, constant: -4),
                 messageLable.leadingAnchor.constraint(equalTo: Holderview.leadingAnchor, constant: 4),
