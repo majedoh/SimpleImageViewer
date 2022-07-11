@@ -31,6 +31,11 @@ public final class ImageViewerController: UIViewController {
         lab.textAlignment = .center
         lab.numberOfLines = 0
         lab.text = "Edit"
+        lab.layer.masksToBounds = false
+        lab.layer.shadowColor = UIColor.black.cgColor
+        lab.layer.shadowOpacity = 0.4
+        lab.layer.shadowOffset = CGSize(width: 0, height: 0)
+        lab.layer.shadowRadius = 1
         return lab
     }()
     
